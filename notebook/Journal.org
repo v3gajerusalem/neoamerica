@@ -1,0 +1,8 @@
+#+TITLE: NeoAmerica
+#+AUTHOR: Vega Jerusalem
+#+STARTUP: hidestars
+
+<2020-07-22 Wed> 
+* IDEA How do I creatively and satiraclly write about or discuss politics and builld a community around it?
+I want to stand out, I almost want it to be an odd, wild block/comic book style of posts but also a clever navigation.
+* TODO Correct logging. Check to make sure you only have one logging backend https://lambdaisland.com/blog/2020-06-12-logging-in-clojure-making-sense-of-the-mess
