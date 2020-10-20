@@ -1,0 +1,32 @@
+#+TITLE: NeoAmerica
+#+AUTHOR: Vega Jerusalem
+#+STARTUP: hidestars
+
+
+
+* Agenda [0/2]
+** DOING Basic login route that takes username and password [/]
+** TODO Salt password [/]
+
+* Thoughts
+** TODO check out ghostwheel, debugging tool/specs 
+
+* [Study]
+integrant.repl should be put in user namespace
+
+Reading about integrant now... init-key, is it possible to start with just one component. That defeats the purpose but just to see how it works.
+#+BEGIN_SRC clojure
+  (defmethod ig/init-key :server [_ {:keys [port]}
+                                (println "NeoAmerica Server starting at port:" port)
+                                (jetty/run-jetty {:port port :join? false})])
+#+END_SRC
+
+#+RESULTS:
+: class clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionSyntax error macroexpanding clojure.core/fn at (src/clj/neoamerica/nexus.clj:1:1).
+: ((println "NeoAmerica Server starting at port:" port) (jetty/run-jetty {:port port, :join? false})) - failed: Extra input at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
+: _ - failed: vector? at: [:fn-tail :arity-n :params] spec: :clojure.core.specs.alpha/param-list
+** IDEA So it complains `no method in muli-methold 'init-key' for dispatch value :server `
+run-jetty DOES have to have something thrown at it...your router...I believe. 
+
+
+* IDEA Reitit route conflicts threw me off when reading documentation.

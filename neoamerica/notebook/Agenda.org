@@ -1,0 +1,38 @@
+#+TITLE: NeoAmerica
+#+AUTHOR: Vega Jerusalem
+#+STARTUP: hidestars
+
+
+
+
+*SCRATCH*
+Ok so where do I want to take this. Of course I got this idea from Transmetropolitan/Spider Jerusalem. NeoAmerica "I Think I Hate It Here". I mostly want to make quick burst posts targeting the political world but also pop culture. Do to short attention spans I believe my posts should be short, quick and funny. Colorful to catch attention. Each post should have a colorful meme/image attached to be planted via instagram and lead back to the site. The site its self on the front should be a table format of the images, when clicked on a frame should appear with the actual post...so we're looking at an SPA.  Now do I want an interface within the website or am I pushing it from my computer and just an editor?
+
+Should posts come in categories? Just tags?
+
+POST MODEL
+id
+title
+slug
+image
+content (Do I want to add additional images within my posts? I definitely want to be able to include youtube/embedded videos)
+views
+category [political, pop culture, tech, misc?]
+
+* IDEA One man twitter show, mixed in with my own items/tshirts/redbubble stuff. also IF YOU'RE AMERICAN COMPANY on Amazon or any platform contact me
+
+
+* TODO Database model to create posts
+* TODO Database transactions. Create, Update, Show All and Single Posts, Delete
+* TODO Show posts on front end
+* TODO User creation/Authentication/
+* TODO Allow sign up/login
+* TODO Additional users sign up to comment, share
+...
+* TODO Forgot password
+* TODO Backdoor for myself
+
+* IDEA WHERE YOU FUCKED UP FORMAT. W.Y.F.U Format
+
+
+# Integrant Study

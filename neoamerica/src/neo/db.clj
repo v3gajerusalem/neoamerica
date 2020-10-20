@@ -9,9 +9,11 @@
                        :password "spiderdeus"})
 
 ;; -- Data Source --------------------------------------
-(def data-source (db/get-datasource db-specification))
+(def data-source
+  (db/get-datasource db-specification))
 
 
 ;;  See dev.clj for table creation. Will figure out how to organize that later. I believe I want to include sql hug
+
 
 
