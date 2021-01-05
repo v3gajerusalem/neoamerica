@@ -1,32 +1,47 @@
-#+TITLE: NeoAmerica
+#+TITLE: NeoAmerica | Journal
 #+AUTHOR: Vega Jerusalem
 #+STARTUP: hidestars
 
+<2020-12-31 Thu 04:30>
+* DONE Start server
+* DONE NEXT Hiccup page routed to index "Neo America"
 
 
-* Agenda [0/2]
-** DOING Basic login route that takes username and password [/]
-** TODO Salt password [/]
+** QUESTION Before it was just giving you raw text. This was necessary to get true html via hiccup
+Ok so common-interceptors
+- body-params/body-params http/html-body
+...in the route :get (conj common-interceptors 'page)
+* QUESTION
+** Response Headers
+*Content-Security-Policy* script-src and i assume css and the like? maybe not
+*Strict-Transport-Security* max-age, subdomains
+*Transfer-Encoding*
+*X-Content-Type-Options: nosniff*
+*X-Download-Options* set on DENY. What does this do?
+*X-Frame-Options* html frames?
+*X-Permitted-Cross-Domain-Policies* 
+*X-XSS-Protection* Options?
+* QUESTION I'm really interested in knowing how interceptors stack up. I see them grouped together in 'defs' then pages, etc are conj'd on. How does this work
+ ANSWER - It really is that simple...it adds on to the interceptor chain 
 
-* Thoughts
-** TODO check out ghostwheel, debugging tool/specs 
+* Interesting Read | https://heykieran.github.io/post/pedestal-buddy/
+_Route_
 
-* [Study]
-integrant.repl should be put in user namespace
+=Roles=
+*Roles are granted (or denied) HTTP verb access to individual uri’s which are represented in the Pedestal world as routes. A route may also be unprotected meaning that its uri is accessible to unauthenticated users (i.e. the public).*
+*There are two ways to allow unprotected access to a resource*
 
-Reading about integrant now... init-key, is it possible to start with just one component. That defeats the purpose but just to see how it works.
-#+BEGIN_SRC clojure
-  (defmethod ig/init-key :server [_ {:keys [port]}
-                                (println "NeoAmerica Server starting at port:" port)
-                                (jetty/run-jetty {:port port :join? false})])
-#+END_SRC
+*Do not use interceptors that manage or restrict access based on identity and permissions. (These interceptors are established for a route with the build-secured-route-vec-to function, which is dicussed in greater detail below).*
+*Name the route using a value in the :alloc-public namespace (see note below on how the permissions lookup table is populated).*
 
-#+RESULTS:
-: class clojure.lang.Compiler$CompilerExceptionclass clojure.lang.Compiler$CompilerExceptionSyntax error macroexpanding clojure.core/fn at (src/clj/neoamerica/nexus.clj:1:1).
-: ((println "NeoAmerica Server starting at port:" port) (jetty/run-jetty {:port port, :join? false})) - failed: Extra input at: [:fn-tail :arity-1 :params] spec: :clojure.core.specs.alpha/param-list
-: _ - failed: vector? at: [:fn-tail :arity-n :params] spec: :clojure.core.specs.alpha/param-list
-** IDEA So it complains `no method in muli-methold 'init-key' for dispatch value :server `
-run-jetty DOES have to have something thrown at it...your router...I believe. 
+* <2021-01-01 Fri>
+** TODO Make a post and persist it to a map
+** Should it be called a post, snippet, crumb, then you'll be able to categorize several small posts on a page to build your idea out.
+** TODO Persist post to a database table
+** TODO Validate it and stop your posts at either 500 words or a reasonable amount of characters
+** DONE Pens should arrive. Start really writing
 
 
-* IDEA Reitit route conflicts threw me off when reading documentation.
+
+* <2021-01-05 Tue>
+** TODO Start on NeoAmerica UI. Just the header 

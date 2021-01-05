@@ -1,20 +1,16 @@
-(ns neoamerica.nexus
+(ns neoamerica.service
   (:require [clojure.pprint]
+            [neoamerica.utils :refer [wrap-jwt-authentication auth-middleware]]
             [reitit.core :as r]
             [reitit.ring :as reitit]
             [reitit.swagger :as swagger]
             [reitit.swagger-ui :as swagger-ui]
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [muuntaja.core :as m]
-            [ring.adapter.jetty :as jetty]
-            [integrant.core :as ig]))
+            [rum.core :as rum]))
 
 
 ;; ** HANDLERS ***********************************************************
-(defn login [req]
-  "User login handler
-    [:handle, :password, :created-at, :last-login, :ip-addr]")
-
 (defn respond-hello [request]
   {:status 200
    :body "NeoAmerica, ignite!"})
@@ -23,7 +19,7 @@
 (def ok (constantly {:status 200 :body "ok"}))
 
 ;; ** ROUTES *************************************************************
-(def routes
+#_(def routes
   [["/swagger.json"
     {:get {:no-doc  true
            :swagger {:info {:title       "NeoAmerica API"
@@ -52,6 +48,19 @@
       :post {:summary "User Login"
              :handler ok}}]]])
 
+(defn wizard [req]                      ;; TODO: determining if user exists here. at the moment the only user is me. going to work on this a bit. theres no order
+  (let [ctx (:identity req)
+        user (db/get-user ctx)]
+    (if (nil? user)
+      {:status 404
+       :body {:error "Do you belong here?"}}
+      {:status 200
+       :body {:user user
+              :token (create-token user)}})))
+
+(def auth-routes
+  [["/wizard-view" {:get {:middleware [wrap-jwt-authentication auth-middleware]
+                          :handler wizard}}]])
 
 (def router
   (reitit/router routes
@@ -65,45 +74,6 @@
 (defn create-app []
   (reitit/ring-handler router
                        (reitit/routes
-                        (swagger-ui/create-swagger-ui-handler {:path "/"}))))
-
-#_(defn start []
-  (jetty/run-jetty #'app {:port 8000 :join false}))
-
-(def system-config 
-  {:neoamerica/jetty {:handler (ig/ref :neoamerica/handler) :port 8000}
-   :neoamerica/handler nil})
-
-
-;; Initialize Jetty
-(defmethod ig/init-key :neoamerica/jetty [handler {:keys [handler port]}]
-     #p (println "NeoAmerica Server starting at port:" port)
-     (jetty/run-jetty handler  {:port port :join? false}))
-
-;; Initialize handler
-(defmethod ig/init-key :neoamerica/handler [handler _]
-  #p (println "*** *** *** [Starting NeoAmerica handlers] ***")
-  (create-app))
-
-(defmethod ig/halt-key! :neoamerica/jetty [_ jetty]
-    #p (println "*** *** *** [Stopping NeoAmerica Web Server] ***")
-  (.stop jetty))
-
-
-
-(comment
-  (defn start [])
-  (def sys (ig/init system-config))
-  (ig/halt! sys)
-  )
-
-
-;; TODO [Main entry point]
-#_(defn -main [& args] 
-    (ig/init _))
-
-
-#_(def system-config {::c nil})
-
+                        (swagger-ui/create-swagger-ui-handler {:path "/swagger"}))))
 
 

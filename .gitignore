@@ -9,3 +9,10 @@
 /.nrepl-port
 .hgignore
 .hg/
+/node_modules
+
+/layouts/v1/node_modules/
+/neoamerica/.cpcache/1081172474.cp
+/neoamerica/.cpcache/
+/._chamber.png
+.nrepl-port

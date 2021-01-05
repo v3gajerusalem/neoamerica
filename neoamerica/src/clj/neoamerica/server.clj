@@ -1,3 +1,0 @@
-(ns neoamerica.server
-  (:require []))
-
