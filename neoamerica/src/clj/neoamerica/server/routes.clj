@@ -44,6 +44,8 @@
      [:body
       [:div "Neo America"]]])))
 #_(route/try-routing-for neoamerica.scratch/routes :prefix-tree "/" :get)
+
+
 ;; -- Routes -----------------------------------------------------------
 (def routes
   ;; ["/echo" :get respond-hello :route-name echo]
@@ -55,6 +57,7 @@
 (defonce server-dev (atom nil))
 
 (def service-map
+
   { ;; ::http/host  "0.0.0.0"
    ;; ::http/allowed-origins {:allowed-origins (fn[_] true) :creds true}
    ::http/type   :jetty
@@ -105,3 +108,7 @@
 #_(start-dev)
 #_(stop-dev)
 #_(restart_dev)
+
+;; Persistence
+
+;; 
